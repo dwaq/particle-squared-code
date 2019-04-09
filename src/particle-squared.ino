@@ -10,8 +10,8 @@
 #include "ccs811.h"
 #include "hpma115.h"
 
-SYSTEM_MODE(SEMI_AUTOMATIC);
-SYSTEM_THREAD(ENABLED);
+// SYSTEM_MODE(SEMI_AUTOMATIC);
+// SYSTEM_THREAD(ENABLED);
 
 #define I2C_SDA_PIN     D0
 #define I2C_SCL_PIN     D1
@@ -181,9 +181,9 @@ void setup() {
 void loop() {
 
   // Connect if not connected..
-  if (Particle.connected() == false) {
+  if (Mesh.ready() == false) {
     Serial.println("Not connected..");
-    Particle.connect();
+    Mesh.connect();
   }
 
   // If all the data is ready, send it as one data blob
