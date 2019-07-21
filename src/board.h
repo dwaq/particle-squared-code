@@ -11,7 +11,7 @@
 #define HW_VERSION HW_VER2
 #endif
 
-#define HAS_HPMA
+//#define HAS_HPMA
 // #define HAS_SGP30
 // #define HAS_BME680
 #define HAS_CCS811
