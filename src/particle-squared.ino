@@ -343,8 +343,10 @@ void setup() {
   // Set up cloud variable
   Particle.function("set_period", set_reading_period);
 
-  // Set up keep alive
-  Particle.keepAlive(60);
+  // Set up keep alive (only needed for cellular)
+  #if PLATFORM_ID == PLATFORM_BORON
+    Particle.keepAlive(60);
+  #endif
 
 }
 
