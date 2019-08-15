@@ -31,7 +31,10 @@ uint32_t Si7021::setup() {
     uint16_t temp_code = (Wire.read() & 0x00ff) << 8 | (Wire.read() & 0x00ff);
 
     // Then calculate the temperature
-    p_data->temperature = ((175.72 * temp_code) / 0xffff - 46.85);
+    float temperature_celsius = ((175.72 * temp_code) / 0xffff - 46.85);
+
+    // convert to fahrenheit
+    p_data->temperature = (temperature_celsius * 9/5) + 32;
 
     // Si7021 Humidity
     Wire.beginTransmission(SI7021_ADDRESS);
