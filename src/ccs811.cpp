@@ -187,16 +187,16 @@ uint32_t CCS811::read(ccs811_data_t * p_data) {
       Wire.requestFrom(this->address, (uint8_t)4); // request the bytes
 
       // Convert data to something useful
-      p_data->c02 = Wire.read();
-      p_data->c02 = (p_data->c02<<8) + Wire.read();
+      p_data->co2 = Wire.read();
+      p_data->co2 = (p_data->co2<<8) + Wire.read();
 
       p_data->tvoc = Wire.read();
       p_data->tvoc = (p_data->tvoc<<8) + Wire.read();
 
-      // Serial.printf("c02: %dppm tvoc: %dppb\n",p_data->c02,p_data->tvoc);
+      // Serial.printf("co2: %dppm tvoc: %dppb\n",p_data->co2,p_data->tvoc);
 
       // If this value is < 400 not ready yet
-      if ( p_data->c02 < CCS811_MIN_C02_LEVEL ) {
+      if ( p_data->co2 < CCS811_MIN_CO2_LEVEL ) {
         return CCS811_DAT_INVALID;
       }
 

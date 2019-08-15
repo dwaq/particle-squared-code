@@ -34,7 +34,7 @@
 
 #define CCS811_FW_MODE_RUN    0x90
 
-#define CCS811_MIN_C02_LEVEL  400
+#define CCS811_MIN_CO2_LEVEL  400
 
 #define CCS811_BASELINE_ADDR  10
 
@@ -51,7 +51,7 @@ enum {
 };
 
 typedef struct {
-  uint16_t c02;
+  uint16_t co2;
   uint16_t tvoc;
 } ccs811_data_t;
 

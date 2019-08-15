@@ -256,7 +256,7 @@ void setup() {
   ccs811_init.rst_pin = CCS811_RST_PIN;
   ccs811_init.wake_pin = CCS811_WAKE_PIN;
 
-  // Init the TVOC & C02 sensor
+  // Init the TVOC & CO2 sensor
   err_code = ccs811.setup(&ccs811_init);
   if( err_code != 0 ) {
     Serial.printf("ccs811 setup err %d\n", err_code);
@@ -444,7 +444,7 @@ void loop() {
     if ( err_code == CCS811_SUCCESS ) {
 
       // Concatinate ccs811 tvoc
-      m_out = String( m_out + String::format(",\"tvoc\":%d,\"c02\":%d", ccs811_data.tvoc, ccs811_data.c02) );
+      m_out = String( m_out + String::format(",\"tvoc\":%d,\"co2\":%d", ccs811_data.tvoc, ccs811_data.co2) );
       Serial.println("tvoc rdy");
     } else if( err_code == CCS811_NO_DAT_AVAIL ) {
       Serial.println("fatal tvoc error");
@@ -462,7 +462,7 @@ void loop() {
     if ( err_code == SGP30_SUCCESS ) {
 
       // concatinate sgp30 data
-      m_out = String( m_out + String::format(",\"sgp30_tvoc\":%d,\"sgp30_c02\":%d", sgp30_data.tvoc, sgp30_data.c02) );
+      m_out = String( m_out + String::format(",\"sgp30_tvoc\":%d,\"sgp30_co2\":%d", sgp30_data.tvoc, sgp30_data.co2) );
       Serial.println("sgp30 rdy");
     } else {
       Particle.publish("err", "sgp30" , PRIVATE, NO_ACK);
