@@ -1,33 +1,20 @@
-# Particle Squared
+# Particle Squared - Bare Bones
 
-![Render](images/render.png)
+This is a forked version of [Jared Wolff's Particle Squared Code](https://bitbucket.org/circuitdojo/particle-squared-code). For more information on that board, [visit his website](https://www.jaredwolff.com/particle-squared-air-quality-sensor/). To support him and his work, you can  [order his sensors from here](https://www.jaredwolff.com/store/particle-squared/).
 
-Particle^2 (pronounced Particle Squared) is a circuit board that helps you monitor the air quality around you. This repository is the code for Particle^2 which enables you to monitor humidity, temperature, air particulates, eCO2 and TVOCs in one small package. You can use it with an Adafruit Feather compatible board or the newest mesh enabled boards from Particle. [For more information click here.](https://www.jaredwolff.com/particle-squared-air-quality-sensor/)
+Particle^2 (pronounced Particle Squared) is a circuit board that helps you monitor the air quality around you. I call my fork of the project "Bare Bones" because I removed the air particulate sensor. It can still monitor humidity, temperature, eCO2 and TVOCs.
 
-[To get yours go here.](https://www.jaredwolff.com/store/particle-squared/)
+I also made some minor changes to the project to suit my goals.
 
 ## Quick Start:
 
-1. Clone this repo onto a place on your machine: `git clone git@bitbucket.org:circuitdojo/particle-squared-code.git`
+1. Clone this repo onto a place on your machine: `git clone git@github.com:dwaq/particle-squared-code.git`
 2. Open the repo with Visual Code: (`code .` using the command line, or `file`->`open`)
 3. Open `/src/particle-squared.ino`
 4. Select your target device in the lower bar (Options are `xenon`, `argon`, `boron`)
 5. Hit `cmd` + `shift` + `p` to get the command menu
 6. Select `Compile application (local)`. You can also choose `Cloud flash` as long as `board.h` has not been modified.
 7. Enjoy playing around with your Particle Squared!
-
-## Getting the BSEC library included with this project
-
-If you're using the BME680 you'll have to include the static library provided by Bosch. [Download the goods here first.](https://www.bosch-sensortec.com/bst/products/all_products/bsec)
-
-For this project (on any Particle Mesh board) you will want the `libalgobsec.a` in `BSEC_1.4.7.3_Generic_Release/algo/bin/Lite_version/gcc/Cortex_M4F`
-
-Add these to the `makefile` in `.particle/toolchains/deviceOS/<version>/firmware-<version>/modules/xenon/user-part` for the Particle stuff to work.
-
-```
-LIB_DEPS += $(USER_LIB_DIR)/libalgobsec.a
-LDFLAGS += -Wl,--whole-archive $(USER_LIB_DIR)/libalgobsec.a -Wl,--no-whole-archive
-```
 
 ## Particle Basics
 
