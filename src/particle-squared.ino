@@ -8,8 +8,11 @@
 
 #include "si7021.h"
 #include "ccs811.h"
-#include "hpma115.h"
 #include "board.h"
+
+#ifdef HAS_HPMA
+#include "hpma115.h"
+#endif
 
 #ifdef HAS_SGP30
 #include "sgp30.h"
@@ -43,7 +46,10 @@ static uint32_t m_reading_period = MEASUREMENT_DELAY_MS;
 // Static objects
 static Si7021  si7021 = Si7021();
 static CCS811  ccs811 = CCS811();
+
+#ifdef HAS_HPMA
 static HPMA115 hpma115 = HPMA115();
+#endif
 
 #ifdef HAS_SGP30
 static SGP30   sgp30 = SGP30();
@@ -55,7 +61,10 @@ static Bsec    bsec = Bsec();
 
 // Set up timer
 Timer timer(m_reading_period, timer_handler);
+
+#ifdef HAS_HPMA
 Timer hpma_timer(HPMA_TIMEOUT_MS, hpma_timeout_handler, true);
+#endif
 
 #ifdef HAS_SGP30
 Timer sgp30_timer(SGP30_READ_INTERVAL, sgp30_timer_handler);
@@ -66,7 +75,10 @@ ApplicationWatchdog wd(WATCHDOG_TIMEOUT_MS, System.reset);
 
 // Data
 static si7021_data_t si7021_data, si7021_data_last;
+
+#ifdef HAS_HPMA
 static hpma115_data_t hpma115_data;
+#endif
 
 #ifdef HAS_CCS811
 static ccs811_data_t ccs811_data;
@@ -105,6 +117,12 @@ void timer_handler() {
   data_check = true;
 }
 
+// ccs811_pin_interrupt() forwards pin interrupt on to the specific handler
+void ccs811_pin_interrupt() {
+  ccs811.int_handler();
+}
+
+#ifdef HAS_HPMA
 // This fires after the hpma should have finished...
 void hpma_timeout_handler() {
   if( hpma115.is_enabled() ) {
@@ -115,25 +133,24 @@ void hpma_timeout_handler() {
 
   m_data_ready = true;
 }
+#endif
 
-// ccs811_pin_interrupt() forwards pin interrupt on to the specific handler
-void ccs811_pin_interrupt() {
-  ccs811.int_handler();
-}
-
+#ifdef HAS_HPMA
 // forwards serial data interrupt to HPMA driver
 void serialEvent1() {
   hpma115.int_handler();
 }
+#endif
 
+#ifdef HAS_HPMA
+// need to comment out because compiler ignores ifdef for some reason
+/*
 // Async publish event
 void hpma_evt_handler(hpma115_data_t *p_data) {
 
   // Disable HPMA
-  #ifdef HAS_HPMA
   hpma115.disable();
   hpma_timer.stop();
-  #endif
 
   // Copy the data.
   hpma115_data = *p_data;
@@ -148,6 +165,8 @@ void hpma_evt_handler(hpma115_data_t *p_data) {
 
   Serial.println("hpma rdy");
 }
+*/
+#endif
 
 int set_reading_period( String period ) {
 
@@ -502,7 +521,9 @@ void loop() {
   }
   #endif
 
+  #ifdef HAS_HPMA
   hpma115.process();
+  #endif
 
   // Proces BME680
   #ifdef HAS_BME680
