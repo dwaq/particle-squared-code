@@ -228,8 +228,8 @@ void checkIaqSensorStatus(void)
 void setup() {
 
   // Turn off the LED
-  // RGB.control(true);
-  // RGB.brightness(0);
+  RGB.control(true);
+  RGB.brightness(0);
 
   // Set up PC based UART (for debugging)
   Serial.blockOnOverrun(false);
