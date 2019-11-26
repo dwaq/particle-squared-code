@@ -33,10 +33,14 @@ SYSTEM_MODE(SEMI_AUTOMATIC);
 #define WATCHDOG_TIMEOUT_MS 120000
 
 // Delay and timing related contsants
-// send measurement every 30 seconds
-// at 10 devices, this is only 876000 messages/month
-// this is less than Losant's 1 million message limit
-#define MEASUREMENT_DELAY_MS 30000
+// send measurement every minute (60 seconds)
+/*
+// at 30 seconds, I hit 1 million messages with 5 days left
+// recalculate in a month..
+// at 10 devices & 30 seconds, it should be 876000 messages/month
+// which is less than Losant's 1 million message limit
+*/
+#define MEASUREMENT_DELAY_MS 60000
 #define MIN_MEASUREMENT_DELAY_MS 10000
 #define HPMA_TIMEOUT_MS 10000
 
