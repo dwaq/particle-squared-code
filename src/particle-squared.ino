@@ -370,6 +370,9 @@ void setup() {
     Particle.keepAlive(60);
   #endif
 
+  // send Signal Strength, Signal Quality, Round Trip Time, Memory Usage to cloud every hour
+  // https://docs.particle.io/tutorials/diagnostics/device-vitals/xenon/
+  Particle.publishVitals(3600);
 }
 
 // loop() runs over and over again, as quickly as it can execute.
