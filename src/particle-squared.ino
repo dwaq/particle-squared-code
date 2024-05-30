@@ -32,13 +32,12 @@ SYSTEM_MODE(SEMI_AUTOMATIC);
 // Watchdog timeout period
 #define WATCHDOG_TIMEOUT_MS 120000
 
-// Delay and timing related contsants
-// send measurement every minute (60 seconds)
+// Delay and timing related constants
+// send measurement every 5 minutes (300 seconds)
 /*
 // At 30 seconds, I hit 1 million messages with 5 days left
 // Recalculate in a month..
 */
-#define MEASUREMENT_DELAY_MS 60000
 /*
 // At 10 devices & 30 seconds, it should be 876000 messages/month
 // Which is less than Losant's 1 million message limit
@@ -47,6 +46,11 @@ SYSTEM_MODE(SEMI_AUTOMATIC);
 // At 10 devices & 60 seconds, it should be 438000 messages/month
 // In an actual month, I got about 432000 messages
 */
+/*
+// 5/30/24: Particle reduced limit to 100,000 data operations per month
+// At 10 devices & 300 seconds, it should be 87600 messages/month
+*/
+#define MEASUREMENT_DELAY_MS 300000
 #define MIN_MEASUREMENT_DELAY_MS 10000
 #define HPMA_TIMEOUT_MS 10000
 
