@@ -35,12 +35,18 @@ SYSTEM_MODE(SEMI_AUTOMATIC);
 // Delay and timing related contsants
 // send measurement every minute (60 seconds)
 /*
-// at 30 seconds, I hit 1 million messages with 5 days left
-// recalculate in a month..
-// at 10 devices & 30 seconds, it should be 876000 messages/month
-// which is less than Losant's 1 million message limit
+// At 30 seconds, I hit 1 million messages with 5 days left
+// Recalculate in a month..
 */
 #define MEASUREMENT_DELAY_MS 60000
+/*
+// At 10 devices & 30 seconds, it should be 876000 messages/month
+// Which is less than Losant's 1 million message limit
+*/
+/*
+// At 10 devices & 60 seconds, it should be 438000 messages/month
+// In an actual month, I got about 432000 messages
+*/
 #define MIN_MEASUREMENT_DELAY_MS 10000
 #define HPMA_TIMEOUT_MS 10000
 
